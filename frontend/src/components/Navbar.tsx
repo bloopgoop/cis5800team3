@@ -44,7 +44,7 @@ const Navbar = () => {
           <ModeToggle />
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <CustomLink href="/login" className={navigationMenuTriggerStyle()}>
+          <CustomLink href="/login" className="bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded">
             Login / Sign Up
           </CustomLink>
         </NavigationMenuItem>

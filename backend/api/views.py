@@ -11,6 +11,7 @@ from django.core.paginator import Paginator
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -23,13 +24,13 @@ def health(request):
 
 @api_view(['POST'])   
 def register(request):
-    username = request.POST["username"]
-    email = request.POST["email"]
-    password = request.POST["password"]
+    data = json.loads(request.body)
 
-    # Attempt to create new user
     try:
-        user = User.objects.create_user(username, email, password)
+        user = User.objects.create(
+            email=data['email'],
+            password=make_password(data['password']),
+        )
         user.save()
         return JsonResponse({"message": "User created successfully."}, status=201)
     except IntegrityError as e:
