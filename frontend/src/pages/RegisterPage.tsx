@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { z } from "zod";
-import AuthContext from "@/context/auth-context";
+import { useNavigate } from "react-router-dom";
 
 const registerFormSchema = z
   .object({
@@ -54,7 +54,7 @@ const registerFormSchema = z
   });
 
 const RegisterPage = () => {
-    AuthContext
+    const navigate = useNavigate();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof registerFormSchema>>({
@@ -81,9 +81,12 @@ const RegisterPage = () => {
         }),
       }
     );
-    if (!response.ok) {
-        alert("An error occurred. Please try again.")
-        console.log(response)
+    if (response.ok) {
+        navigate("/login")
+    } else {
+        const responseBody = await response.json()
+        console.log(responseBody)
+        alert(`An error occurred. Please try again:\n\n${responseBody.message}`)
     }
 
   }
