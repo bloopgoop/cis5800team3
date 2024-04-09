@@ -149,7 +149,7 @@ export default function HomePage() {
               call or stop by and we'll take care of you."
             </p>
             <h1 className="text-xs font-bold py-2">STAFFERS</h1>
-            <p className="flex flex-row gap-8 pb-4">
+            <div className="flex flex-row gap-8 pb-4">
               {staffers.map((staff, index) => (
                 <StaffAvatar
                   key={index}
@@ -157,7 +157,7 @@ export default function HomePage() {
                   image={staff.image}
                 />
               ))}
-            </p>
+            </div>
             <h1 className="text-xs font-bold py-2 border-b">
               CONTACT & BUSINESS HOURS
             </h1>
@@ -170,11 +170,11 @@ export default function HomePage() {
             </p>
             <div className="text-sm py-4">
               <div className="grid grid-cols-2 gap-1">
-                {schedule.map((day) => (
-                  <>
+                {schedule.map((day, index) => (
+                  <div key={index}>
                     <p>{day.day}</p>
                     <p className="ml-auto">{day.hours}</p>
-                  </>
+                  </div>
                 ))}
               </div>
             </div>
