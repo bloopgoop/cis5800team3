@@ -21,6 +21,8 @@ import { Images } from "@/types/images";
 import { Service } from "@/types/services";
 import { Link } from "react-router-dom";
 
+import React from "react";
+
 const shops: Images[] = [
   {
     image: bs1,
@@ -171,10 +173,10 @@ export default function HomePage() {
             <div className="text-sm py-4">
               <div className="grid grid-cols-2 gap-1">
                 {schedule.map((day, index) => (
-                  <div key={index}>
+                  <React.Fragment key={index}>
                     <p>{day.day}</p>
                     <p className="ml-auto">{day.hours}</p>
-                  </div>
+                  </React.Fragment>
                 ))}
               </div>
             </div>

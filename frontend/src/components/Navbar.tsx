@@ -50,7 +50,7 @@ const Navbar = () => {
         </NavigationMenuItem>
         {user ? (
           <>
-            <NavigationMenuItem>
+            <NavigationMenuItem className="hidden md:block">
               <CustomLink href="/profile" className="">
                 {user.email}
               </CustomLink>

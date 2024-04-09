@@ -38,7 +38,8 @@ const ProfilePage = () => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${authTokens.access}`,
+          "Authorization": `Bearer ${authTokens.access}`,
+          "ngrok-skip-browser-warning": "69420",
         },
       }
     );
