@@ -11,6 +11,9 @@ import { ThemeProvider } from "./context/theme-provider";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import BookAppointmentPage from "./pages/BookAppointmentPage";
+import SuccessPage from "./pages/SuccessPage";
+import ProfilePage from "./pages/ProfilePage";
 import ErrorPage from "./pages/ErrorPage";
 
 function App() {
@@ -22,6 +25,9 @@ function App() {
             <Route element={<HomePage />} path="/" />
             <Route element={<LoginPage />} path="/login" />
             <Route element={<RegisterPage />} path="/register" />
+            <Route element={<BookAppointmentPage />} path="/book" />
+            <Route element={<SuccessPage />} path="/success" />
+            <Route element={<ProfilePage />} path="/profile" />
 
             // Route to error page if page not found
             <Route element={<ErrorPage />} path="/error" />

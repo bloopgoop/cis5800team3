@@ -179,4 +179,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+CSRF_TRUSTED_ORIGINS = ['http://localhost:5173']
+CSRF_COOKIE_SECURE = False
+CSRF_COOKIE_HTTPONLY = False
+SESSION_COOKIE_SECURE = False
+
 AUTH_USER_MODEL = "api.User" 

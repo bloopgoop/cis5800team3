@@ -1,4 +1,10 @@
-import { zodResolver } from "@hookform/resolvers/zod";
+import { AlertCircle } from "lucide-react";
+import { useContext } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useLocation } from "react-router-dom";
+import { z } from "zod";
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -11,10 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import AuthContext from "@/context/auth-context";
-import { useContext } from "react";
-import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const loginFormSchema = z.object({
   email: z
@@ -38,6 +41,7 @@ const loginFormSchema = z.object({
 });
 
 const LoginPage = () => {
+  const location = useLocation();
   const { loginUser } = useContext(AuthContext);
 
   // 1. Define your form.
@@ -56,61 +60,79 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="mt-20 mx-auto bg-secondary max-w-screen-lg">
-      <div className="p-10 flex flex-col items-center">
-        <h1 className="text-xl font-bold mt-16">Sign In</h1>
-        <p className="mb-16">Welcome back!</p>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="w-4/5 flex-1">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input type="input" placeholder="Email" {...field} />
-                  </FormControl>
-                  <FormDescription>User email</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input type="password" placeholder="Password" {...field} />
-                  </FormControl>
-                  <FormDescription>User login password</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button className="float-right" type="submit">
-              Login
-            </Button>
-          </form>
-        </Form>
-        <div className="footer mb-10">
-          <p>
-            Don't have an account?{" "}
-            <Link to="/register" className="hover:underline">
-              Register
-            </Link>
-          </p>
-          <p>
-            Just browsing?{" "}
-            <Link to="/" className="hover:underline">
-              Continue as guest
-            </Link>
-          </p>
+    <>
+      <div className="mt-20 mx-auto bg-secondary max-w-screen-lg">
+        <div className="p-10 flex flex-col items-center">
+          <h1 className="text-xl font-bold mt-16">Sign In</h1>
+          <p className="mb-16">Welcome back!</p>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="w-4/5 flex-1"
+            >
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input type="input" placeholder="Email" {...field} />
+                    </FormControl>
+                    <FormDescription>User email</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="password"
+                        placeholder="Password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>User login password</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button className="float-right" type="submit">
+                Login
+              </Button>
+            </form>
+          </Form>
+          <div className="footer mb-10">
+            <p>
+              Don't have an account?{" "}
+              <Link to="/register" className="hover:text-accent underline">
+                Register
+              </Link>
+            </p>
+            <p>
+              Just browsing?{" "}
+              <Link to="/" className="hover:text-accent underline">
+                Continue as guest
+              </Link>
+            </p>
+          </div>
+        </div>
+        <div className="px-10 pb-10">
+          {location.state?.message && (
+            <Alert variant="destructive">
+              <AlertCircle className="h-4 w-4" />
+              <AlertTitle>Error</AlertTitle>
+              <AlertDescription>{location.state.message}</AlertDescription>
+            </Alert>
+          )}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 export default LoginPage;

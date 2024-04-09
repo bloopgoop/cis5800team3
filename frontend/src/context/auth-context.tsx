@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import { DecodedRefreshToken } from "@/types/decodedRefreshToken";
 
 type AuthProviderProps = {
   children: React.ReactNode;
@@ -12,14 +13,14 @@ type AuthTokens = {
 };
 
 type AuthProviderState = {
-  user: string | null;
+  user: DecodedRefreshToken | null;
   authTokens: AuthTokens | null;
   loginUser: (email:string, password:string) => void;
   logoutUser: () => void;
 };
 
 const initialState: AuthProviderState = {
-  user: "",
+  user: null,
   authTokens: null,
   loginUser: () => null,
   logoutUser: () => null,
@@ -35,7 +36,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       ? JSON.parse(localStorage.getItem("authTokens") as string)
       : null
   );
-  const [user, setUser] = useState<string | null>(() =>
+  const [user, setUser] = useState<DecodedRefreshToken | null>(() =>
     localStorage.getItem("authTokens")
       ? jwtDecode(localStorage.getItem("authTokens") as string)
       : null

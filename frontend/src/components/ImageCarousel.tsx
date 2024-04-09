@@ -6,6 +6,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { type CarouselApi } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import {
   Table,
@@ -25,7 +26,7 @@ const ImageFrame = ({ src }: { src: string }) => {
   return (
     <div className="w-[100%]">
       <AspectRatio ratio={16 / 9}>
-        <img src={src} alt="" className="object-cover"/>
+        <img src={src} alt="" className="object-cover" />
       </AspectRatio>
     </div>
   );
@@ -50,7 +51,15 @@ const ImageCarousel = ({ images }: { images: Images[] }) => {
   }, [api]);
   return (
     <>
-      <Carousel setApi={setApi} className="w-full max-w-[80%] mx-auto">
+      <Carousel
+        setApi={setApi}
+        className="w-full max-w-[80%] mx-auto"
+        plugins={[
+          Autoplay({
+            delay: 5000,
+          }),
+        ]}
+      >
         <CarouselContent>
           {images.map((image, index) => (
             <CarouselItem key={index}>
@@ -72,7 +81,13 @@ const ImageCarousel = ({ images }: { images: Images[] }) => {
             {Object.keys(images[current - 1].description).map((key) => (
               <TableRow key={key}>
                 <TableCell>{capitalize(key)}</TableCell>
-                <TableCell>{(images[current - 1].description as Record<string, string>)[key]}</TableCell>
+                <TableCell>
+                  {
+                    (images[current - 1].description as Record<string, string>)[
+                      key
+                    ]
+                  }
+                </TableCell>
                 {/* Record<K, T> is TypeScript utility to represent an object type where keys are type K and values are type T */}
               </TableRow>
             ))}

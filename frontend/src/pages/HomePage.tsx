@@ -18,6 +18,7 @@ import bs1 from "@/assets/bs1.png";
 import bs2 from "@/assets/bs2.png";
 import bs3 from "@/assets/bs3.png";
 import { Images } from "@/types/images";
+import { Service } from "@/types/services";
 import { Link } from "react-router-dom";
 
 const shops: Images[] = [
@@ -44,7 +45,7 @@ const shops: Images[] = [
   },
 ];
 
-const popularServices = [
+const popularServices: Service[] = [
   {
     name: "Men's Haircut",
     price: 2000,
@@ -80,7 +81,7 @@ const StaffAvatar = ({ name, image }: { name: string; image: string }) => {
   return (
     <div className="flex flex-col">
       <Avatar className="h-14 w-14">
-        <AvatarImage src={image} className="object-cover"/>
+        <AvatarImage src={image} className="object-cover" />
         <AvatarFallback>{name}</AvatarFallback>
       </Avatar>
       <p className="text-center text-sm font-semibold">{name}</p>
@@ -128,7 +129,9 @@ export default function HomePage() {
                             {service.time}
                           </p>
                         </div>
-                        <Button>Book</Button>
+                        <Link to="/book" state={service}>
+                          <Button variant={"accent"}>Book</Button>
+                        </Link>
                       </div>
                     </div>
                   ))}
@@ -161,7 +164,9 @@ export default function HomePage() {
             <p className="text-sm py-4 border-b flex text-muted-foreground items-center">
               <IconPhoneCall size={20} />
               <span className="pl-2">(718) 682-1780</span>
-              <Button className="ml-auto">Call</Button>
+              <Button variant={"accent"} className="ml-auto">
+                Call
+              </Button>
             </p>
             <div className="text-sm py-4">
               <div className="grid grid-cols-2 gap-1">
@@ -183,7 +188,10 @@ export default function HomePage() {
               </div>
             </div>
             <footer className="pt-3 border-t mt-auto text-sm font-semibold flex justify-between">
-              <Link to="/admin" className="flex flex-row justify-between w-full items-center">
+              <Link
+                to="/admin"
+                className="flex flex-row justify-between w-full items-center"
+              >
                 <p>Report</p>
                 <p className="text-xl">&gt;</p>
               </Link>

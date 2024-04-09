@@ -6,7 +6,10 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import { Button } from "@/components/ui/button";
 import ModeToggle from "./ModeToggle";
+import AuthContext from "@/context/auth-context";
+import { useContext } from "react";
 
 type CustomLinkProps = {
   href: string;
@@ -29,6 +32,8 @@ const CustomLink = ({ href, children, ...props }: CustomLinkProps) => {
 };
 
 const Navbar = () => {
+  const { user, logoutUser } = useContext(AuthContext);
+
   return (
     <NavigationMenu className="w-screen max-w-full px-12 py-2 justify-between shadow-sm shadow-border">
       <NavigationMenuList>
@@ -39,15 +44,31 @@ const Navbar = () => {
         </NavigationMenuItem>
       </NavigationMenuList>
 
-      <NavigationMenuList>
+      <NavigationMenuList className="gap-1">
         <NavigationMenuItem>
           <ModeToggle />
         </NavigationMenuItem>
-        <NavigationMenuItem>
-          <CustomLink href="/login" className="bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded">
-            Login / Sign Up
-          </CustomLink>
-        </NavigationMenuItem>
+        {user ? (
+          <>
+            <NavigationMenuItem>
+              <CustomLink href="/profile" className="">
+                {user.email}
+              </CustomLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <Button variant={"ghost"} onClick={logoutUser}>Log Out</Button>
+            </NavigationMenuItem>
+          </>
+        ) : (
+          <NavigationMenuItem>
+            <CustomLink
+              href="/login"
+              className="bg-accent text-sm text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded"
+            >
+              Login / Sign Up
+            </CustomLink>
+          </NavigationMenuItem>
+        )}
       </NavigationMenuList>
     </NavigationMenu>
   );

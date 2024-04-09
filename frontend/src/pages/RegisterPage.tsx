@@ -88,7 +88,6 @@ const RegisterPage = () => {
         console.log(responseBody)
         alert(`An error occurred. Please try again:\n\n${responseBody.message}`)
     }
-
   }
 
   return (
@@ -147,13 +146,13 @@ const RegisterPage = () => {
         <div className="footer mb-10">
           <p>
             Already have an account?{" "}
-            <Link to="/login" className="hover:underline">
-              Register
+            <Link to="/login" className="hover:text-accent underline">
+              Log in
             </Link>
           </p>
           <p>
             Just browsing?{" "}
-            <Link to="/" className="hover:underline">
+            <Link to="/" className="hover:text-accent underline">
               Continue as guest
             </Link>
           </p>
