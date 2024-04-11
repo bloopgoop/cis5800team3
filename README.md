@@ -1,6 +1,8 @@
 # cis5800team3 barber shop webapp
+https://github.com/bloopgoop/cis5800team3/assets/104113781/457b8ebf-56bb-4f9b-9bac-9d2b9c7b0893
 
 How to run:
+
 
 > git clone https://github.com/bloopgoop/cis5800team3.git
 
